@@ -1,0 +1,39 @@
+DATABASE custdemo
+
+LAYOUT (TEXT="Stock Items", STYLE="dialog")
+	TABLE
+{
+ Stock No   Description      Regular Price     Promo Price      Unit
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+[col001   ][col002         ][col003          ][col004         ][c005]
+}
+	END --TABLE
+END --LAYOUT
+
+TABLES
+
+   stock
+
+END --TABLES
+
+ATTRIBUTES
+
+   col001 = stock.stock_num;
+   col002 = stock.description;
+   col003 = stock.reg_price;
+   col004 = stock.promo_price;
+   c005 = stock.unit;
+
+END --ATTRIBUTES
+
+INSTRUCTIONS
+
+  SCREEN RECORD s_stock[8] (stock.stock_num THRU stock.unit);
+
+END --INSTRUCTIONS

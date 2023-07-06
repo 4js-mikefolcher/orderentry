@@ -1,0 +1,57 @@
+DATABASE custdemo
+
+SCREEN TITLE "Orders"
+{
+["Order Number:   "][fld001    ]
+["Order Date:     "][fld002    ]
+["Store Number:   "][fld003    ][lbl001              ]
+["Factory Code:   "][f04]       [lbl002         ]
+["Shipping Instr: "][fld005    ]
+["Promotion (Y/N):"][p]
+--------------------------------------------------------
+ Order Number    Stock Number    Quantity    Price
+[col001        ][col002     ]   [col003    ][col004    ]
+[col001        ][col002     ]   [col003    ][col004    ]
+[col001        ][col002     ]   [col003    ][col004    ]
+--------------------------------------------------------
+["Order Total: "][tot001     ]
+}
+END --SCREEN
+
+TABLES
+
+   orders, items, factory, customer, formonly
+
+END --TABLES
+
+ATTRIBUTES
+
+    --orders table fields
+    fld001 = orders.order_num, noentry;
+    fld002 = orders.order_date, comment="Enter order date";
+    fld003 = orders.store_num, comment="Enter store number";
+    f04 = orders.fac_code, upshift, comment="Enter factory code";
+    fld005 = orders.ship_instr, upshift, comment="Enter shipping instructions";
+    p = orders.promo, upshift, include = ("Y","N");
+
+    --code descriptions
+    lbl001 = customer.store_name, upshift, noentry;
+    lbl002 = factory.fac_name, upshift, noentry;
+
+    --items table fields
+    col001 = items.order_num, noentry;
+    col002 = items.stock_num, comment="Enter stock number";
+    col003 = items.quantity, comment="Enter quantity";
+    col004 = items.price, comment="Enter price";
+
+    --Order Total
+    tot001 = formonly.order_total type decimal, noentry;
+
+END --ATTRIBUTES
+
+INSTRUCTIONS
+
+   SCREEN RECORD s_orders (orders.order_num thru orders.promo);
+   SCREEN RECORD s_items (items.order_num thru items.price);
+
+END --INSTRUCTIONS

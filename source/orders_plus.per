@@ -1,0 +1,86 @@
+SCHEMA custdemo
+
+TOOLBAR
+	ITEM query (TEXT="Query", IMAGE="fa-search")
+	ITEM add (TEXT="Add", IMAGE="fa-plus")
+	ITEM update (TEXT="Update", IMAGE="edit")
+	ITEM delete (TEXT="Delete", IMAGE="garbage")
+	SEPARATOR
+	ITEM save (TEXT="Save", IMAGE="disk")
+	ITEM accept (TEXT="Accept", IMAGE="fa-check")
+	ITEM cancel (TEXT="Cancel", IMAGE="cancel")
+	ITEM zoom (TEXT="Table Help", IMAGE="quest")
+	SEPARATOR
+	ITEM first (TEXT="First", IMAGE="first")
+	ITEM previous (TEXT="Previous", IMAGE="prev")
+	ITEM next (TEXT="Next", IMAGE="next")
+	ITEM last (TEXT="Last", IMAGE="last")
+	SEPARATOR
+	ITEM exit (TEXT="Exit", IMAGE="exit")
+	AUTOITEMS ( CONTENT=ACTIONS )
+END --TOOLBAR
+
+LAYOUT (TEXT="Orders", STYLE="main2")
+	VBOX
+		GROUP (TEXT="Order Information")
+			GRID
+{
+["Order Number:   "][fld001    ]
+["Order Date:     "][fld002    ]
+["Store Number:   "][fld003              ]
+["Factory Code:   "][fld004              ]
+["Shipping Instr: "][fld005    ]
+["Promotion:      "][p]
+}
+			END --GRID
+		END --GROUP
+		GROUP (TEXT="Order Items")
+			TABLE
+{
+ Order Number   Stock           Quantity     Price         Item Total
+[col001        |col002         |col003      |col004      ][col005             ]
+[col001        |col002         |col003      |col004      ][col005             ]
+[col001        |col002         |col003      |col004      ][col005             ]
+                                                          [tot001             ]
+}
+			END --TABLE
+		END --GROUP
+	END --VBOX
+END --LAYOUT
+
+TABLES
+
+   orders, items, factory, customer, formonly
+
+END --TABLES
+
+ATTRIBUTES
+
+    --orders table fields
+    EDIT fld001 = orders.order_num, noentry;
+    DATEEDIT fld002 = orders.order_date, comment="Enter order date";
+    COMBOBOX fld003 = orders.store_num, INITIALIZER=loadCustomers, comment="Select customer";
+    COMBOBOX fld004 = orders.fac_code, INITIALIZER=loadFactories, comment="Select factory";
+    EDIT fld005 = orders.ship_instr, upshift, comment="Enter shipping instructions";
+    CHECKBOX p = orders.promo, VALUECHECKED="Y", VALUEUNCHECKED="N", NOT NULL;
+
+    --items table fields
+    EDIT col001 = items.order_num, noentry;
+    COMBOBOX col002 = items.stock_num, INITIALIZER=loadStocks, comment="Select stock number";
+    EDIT col003 = items.quantity, comment="Enter quantity";
+    EDIT col004 = items.price, comment="Enter price";
+	 EDIT col005 = formonly.subtotal, NOENTRY;
+
+    --Order Total
+    AGGREGATE tot001 = formonly.order_total type DECIMAL,
+		AGGREGATETEXT="Total:",
+		AGGREGATETYPE=SUM;
+
+END --ATTRIBUTES
+
+INSTRUCTIONS
+
+   SCREEN RECORD s_orders (orders.order_num thru orders.promo);
+   SCREEN RECORD s_items (items.order_num thru items.price, formonly.subtotal);
+
+END --INSTRUCTIONS

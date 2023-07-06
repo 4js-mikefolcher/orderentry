@@ -1,0 +1,37 @@
+DATABASE custdemo
+
+SCREEN TITLE "Customers"
+{
+ Customer No  Customer Name        City            Contact
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+[col001   ]  [col002             ][col003        ][col004                      ]
+}
+END --SCREEN
+
+TABLES
+
+   customer
+
+END --TABLES
+
+ATTRIBUTES
+
+   col001 = customer.store_num;
+   col002 = customer.store_name;
+   col003 = customer.city;
+   col004 = customer.contact_name;
+
+
+END --ATTRIBUTES
+
+INSTRUCTIONS
+
+  SCREEN RECORD s_customer[8] (customer.store_num THRU customer.contact_name);
+
+END --INSTRUCTIONS

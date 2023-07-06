@@ -1,0 +1,34 @@
+DATABASE custdemo
+
+SCREEN TITLE "Factories"
+{
+ Code  Name
+[c01] [col002         ]
+[c01] [col002         ]
+[c01] [col002         ]
+[c01] [col002         ]
+[c01] [col002         ]
+[c01] [col002         ]
+[c01] [col002         ]
+[c01] [col002         ]
+}
+END --SCREEN
+
+TABLES
+
+   factory
+
+END --TABLES
+
+ATTRIBUTES
+
+   c01 = factory.fac_code;
+   col002 = factory.fac_name;
+
+END --ATTRIBUTES
+
+INSTRUCTIONS
+
+  SCREEN RECORD s_factory[8] (factory.fac_code THRU factory.fac_name);
+
+END --INSTRUCTIONS

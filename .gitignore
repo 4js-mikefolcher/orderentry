@@ -22,3 +22,23 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Genero Files
+
+## File extensions
+*.4pwcfg
+*.4pwdb
+*.4pwvs
+*.42?
+*.log
+.DS_Store
+*.4pdb
+
+## Directories
+bin/
+distbin/
+build/
+bdl_packages/
+javadeps/
+log/
+.gst/
